@@ -1,3 +1,7 @@
+# Cloudflare Pages usa ESTE archivo (302 real, sin pantalla intermedia).
+# Las carpetas /croto/, /eva/, etc. son el equivalente para hosting estatico
+# tipo GitHub Pages, que no lee _redirects. Se pueden borrar al pasar a Cloudflare.
+
 # Atajos a Spotify — fuzzer.com.ar/croto, /amsterdam, etc.
 /croto              https://open.spotify.com/track/0P1hQTyyVKHrjTVnA1BwT3   302
 /amsterdam          https://open.spotify.com/track/17uSbF8gsSDHOsfbwROwDb   302

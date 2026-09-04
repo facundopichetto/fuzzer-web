@@ -3,7 +3,14 @@
 ## Archivos
 - `index.html` — la landing entera, un solo archivo autocontenido (346 KB).
   La tapa de CROTO va embebida en base64, no depende de ningun servidor de imagenes.
-- `_redirects` — atajos de Cloudflare Pages (fuzzer.com.ar/croto, /eva, /yt, etc.)
+- `_redirects` — atajos para Cloudflare Pages. Da un 302 real, sin pantalla intermedia.
+- `croto/`, `amsterdam/`, `enrio/`, `notmybestnight/`, `eva/`, `nosvanamatar/`,
+  `spotify/`, `ep/`, `yt/`, `video/`, `ig/` — el mismo atajo pero como pagina HTML,
+  para hosting estatico que NO lee `_redirects` (GitHub Pages, por ejemplo).
+  Cada una hace meta refresh + location.replace + deja un link visible por si falla.
+
+**Al pasar a Cloudflare** se pueden borrar esas 11 carpetas y queda solo `_redirects`,
+que es mas prolijo porque redirige a nivel servidor. Si se dejan, tampoco rompe nada.
 
 ## Como se publica
 1. Entrar al Cloudflare de fuzzer.com.ar (falta el acceso, se lo pedi a Santi).

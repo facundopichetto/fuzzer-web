@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FUZZER en spotify</title>
+<meta name="robots" content="noindex">
+<meta property="og:title" content="FUZZER en spotify">
+<meta property="og:description" content="stoner punk from buenos aires. escuchá CROTO.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600&family=Big+Shoulders+Display:wght@900&display=swap">
+<style>
+  :root{--negro:#120A1C;--crema:#F5E9C8;--menta:#5FE3CE;--violeta:#7B3BD4;--magenta:#F0308C;--gris:#C9BCA6}
+  *{box-sizing:border-box}
+  html,body{min-height:100%}
+  body{margin:0;background:var(--negro);color:var(--crema);font-family:Archivo,system-ui,sans-serif;
+       display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 18px;text-align:center}
+  h1{font-family:"Big Shoulders Display",Impact,sans-serif;font-weight:900;font-size:clamp(56px,16vw,96px);
+     line-height:.9;margin:0 0 6px;text-transform:uppercase;letter-spacing:.01em}
+  h1 em{font-style:normal;color:var(--menta)}
+  .sub{color:var(--menta);font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:12px;margin:0 0 22px}
+  .player{width:100%;max-width:420px;border-radius:14px;overflow:hidden;box-shadow:8px 8px 0 var(--violeta);background:#1b1226}
+  .player iframe{display:block;width:100%;height:352px;border:0}
+  .btns{display:flex;flex-direction:column;gap:12px;width:100%;max-width:420px;margin-top:28px}
+  a.b{display:block;padding:16px 18px;border-radius:10px;font-weight:600;font-size:17px;text-decoration:none;
+      text-transform:uppercase;letter-spacing:.04em}
+  a.b1{background:var(--menta);color:var(--negro)}
+  a.b2{border:2px solid var(--menta);color:var(--menta)}
+  .pie{margin-top:26px;color:var(--gris);font-size:13px;line-height:1.5}
+  .pie a{color:var(--crema)}
+</style>
+</head>
+<body>
+  <h1>Fu<em>zz</em>er</h1>
+  <p class="sub">stoner punk from buenos aires</p>
+
+  <div class="player">
+    <iframe id="sp" title="FUZZER en spotify" loading="lazy" allowfullscreen
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      src="https://open.spotify.com/embed/track/0P1hQTyyVKHrjTVnA1BwT3?utm_source=fuzzer.com.ar&theme=0"></iframe>
+  </div>
+
+  <div class="btns">
+    <a class="b b2" id="seguir" href="https://open.spotify.com/artist/7HnBNXzvxFQcb9de2TyYhK">seguir a fuzzer en spotify</a>
+    <a class="b b1" id="abrir" href="https://open.spotify.com/track/0P1hQTyyVKHrjTVnA1BwT3">abrir en spotify</a>
+  </div>
+
+  <p class="pie">el disco entero: <a href="https://open.spotify.com/album/05ohAcEIfyKA0jQqSGU1H3">CROTO</a> · <a href="https://fuzzer.com.ar">fuzzer.com.ar</a></p>
+
+  <script>
+    // ?t=amsterdam elige el tema. sin parametro: CROTO.
+    var temas={croto:"0P1hQTyyVKHrjTVnA1BwT3",amsterdam:"17uSbF8gsSDHOsfbwROwDb",enrio:"0lNgYYBGLuH3EpJ0MO7Bgt",
+      notmybestnight:"0J4lTAlYSRFlP5JZpW0gw5",eva:"0QB5MWyRuoOBLRXve1Algt",nosvanamatar:"5FRyEtpUj1Yw5tlPqjuhtF"};
+    var t=(new URLSearchParams(location.search).get("t")||"").toLowerCase();
+    if(temas[t]&&t!=="croto"){
+      document.getElementById("sp").src="https://open.spotify.com/embed/track/"+temas[t]+"?utm_source=fuzzer.com.ar&theme=0";
+      document.getElementById("abrir").href="https://open.spotify.com/track/"+temas[t];
+    }
+  </script>
+</body>
+</html>

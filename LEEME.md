@@ -3,20 +3,45 @@
 ## Archivos
 - `index.html` — la landing entera, un solo archivo autocontenido (346 KB).
   La tapa de CROTO va embebida en base64, no depende de ningun servidor de imagenes.
-- `_redirects` — atajos para Cloudflare Pages. Da un 302 real, sin pantalla intermedia.
+- `_redirects` — vacio a proposito, solo un comentario. Ver "Atajos y como se mide".
 - `croto/`, `amsterdam/`, `enrio/`, `notmybestnight/`, `eva/`, `nosvanamatar/`,
-  `spotify/`, `ep/`, `yt/`, `video/`, `ig/` — el mismo atajo pero como pagina HTML,
-  para hosting estatico que NO lee `_redirects` (GitHub Pages, por ejemplo).
-  Cada una hace meta refresh + location.replace + deja un link visible por si falla.
+  `spotify/`, `ep/`, `yt/`, `video/`, `ig/`, `qr1/` — los atajos, uno por carpeta,
+  cada uno un `index.html` que redirige solo.
 
-**Al pasar a Cloudflare** se pueden borrar esas 11 carpetas y queda solo `_redirects`,
-que es mas prolijo porque redirige a nivel servidor. Si se dejan, tampoco rompe nada.
+## Atajos y como se mide
+Antes los atajos eran 302 en `_redirects`. Un 302 lo resuelve Cloudflare: el
+navegador nunca carga una pagina nuestra, no corre ningun script, **no se puede
+contar cuanta gente pasa de fuzzer.com.ar a Spotify**. Y ese numero es justo el
+que importa para saber si la pauta sirve.
+
+Ahora cada atajo es una pagina html:
+1. carga (ahi dispara el pageview de Cloudflare Web Analytics, que Cloudflare
+   inyecta solo cuando esta activado en el proyecto de Pages),
+2. muestra "abriendo croto en spotify..." con el link visible,
+3. a los **700 ms** hace `location.replace(...)` al destino.
+
+Ademas queda un `<meta http-equiv="refresh" content="2; url=...">` como fallback:
+si el navegador tiene el js apagado, redirige igual a los 2 segundos.
+
+Para el usuario es practicamente igual de rapido. La diferencia es que ahora
+queda medido: en Cloudflare > Web Analytics, los pageviews de `/croto`,
+`/amsterdam`, etc. son los clicks a Spotify.
+
+**Falta un paso, y lo tiene que hacer quien administra el Cloudflare:** activar
+Web Analytics en el proyecto de Pages (Settings > Web Analytics > Enable). Sin
+eso no se inyecta el beacon y las paginas redirigen igual pero no cuentan nada.
+
+Los 302 viejos estan en `git show c119f30:_redirects` por si hay que volver.
 
 ## Como se publica
-1. Entrar al Cloudflare de fuzzer.com.ar (falta el acceso, se lo pedi a Santi).
-2. Workers & Pages -> Create -> Pages -> Upload assets.
-3. Subir esta carpeta entera. Cloudflare lee `_redirects` solo.
-4. Custom domains -> agregar fuzzer.com.ar y www.fuzzer.com.ar.
+Manual: Workers & Pages -> el proyecto `fuzzer` -> Create new deployment ->
+Upload assets -> subir el contenido de esta carpeta.
+
+Mejor: conectar Pages al repo (Workers & Pages -> Create -> Pages -> Connect to
+Git -> `facundopichetto/fuzzer-web`, sin build command, output directory `/`).
+Con eso cada push a `main` deploya solo y no hay que subir zips nunca mas.
+
+Custom domains -> fuzzer.com.ar y www.fuzzer.com.ar.
 
 El DNS ya esta en Cloudflare, asi que el 522 se arregla solo cuando haya algo
 detras del dominio.

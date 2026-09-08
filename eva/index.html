@@ -6,7 +6,8 @@
 <title>FUZZER</title>
 <meta name="robots" content="noindex">
 <link rel="canonical" href="https://open.spotify.com/track/0QB5MWyRuoOBLRXve1Algt">
-<meta http-equiv="refresh" content="0; url=https://open.spotify.com/track/0QB5MWyRuoOBLRXve1Algt">
+<!-- fallback sin js: si el script no corre, el meta refresh manda a los 2s -->
+<meta http-equiv="refresh" content="2; url=https://open.spotify.com/track/0QB5MWyRuoOBLRXve1Algt">
 <style>
   html,body{height:100%}
   body{margin:0;background:#120A1C;color:#F5E9C8;display:grid;place-items:center;
@@ -17,9 +18,12 @@
 </head>
 <body>
   <div>
-    <p>Abriendo EVA en Spotify...</p>
-    <a href="https://open.spotify.com/track/0QB5MWyRuoOBLRXve1Algt">Si no pasa nada, entrá acá</a>
+    <p>abriendo eva en spotify...</p>
+    <a href="https://open.spotify.com/track/0QB5MWyRuoOBLRXve1Algt">si no pasa nada, entra aca</a>
   </div>
-  <script>location.replace("https://open.spotify.com/track/0QB5MWyRuoOBLRXve1Algt");</script>
+  <!-- los 700ms le dan tiempo al beacon de cloudflare web analytics
+       a mandar el pageview antes de irnos. asi se puede contar
+       cuanta gente pasa de verdad. -->
+  <script>setTimeout(function(){location.replace("https://open.spotify.com/track/0QB5MWyRuoOBLRXve1Algt");},700);</script>
 </body>
 </html>

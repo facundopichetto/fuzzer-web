@@ -6,7 +6,8 @@
 <title>FUZZER</title>
 <meta name="robots" content="noindex">
 <link rel="canonical" href="https://www.instagram.com/fu777er/">
-<meta http-equiv="refresh" content="0; url=https://www.instagram.com/fu777er/">
+<!-- fallback sin js: si el script no corre, el meta refresh manda a los 2s -->
+<meta http-equiv="refresh" content="2; url=https://www.instagram.com/fu777er/">
 <style>
   html,body{height:100%}
   body{margin:0;background:#120A1C;color:#F5E9C8;display:grid;place-items:center;
@@ -17,9 +18,12 @@
 </head>
 <body>
   <div>
-    <p>Abriendo Instagram...</p>
-    <a href="https://www.instagram.com/fu777er/">Si no pasa nada, entrá acá</a>
+    <p>abriendo instagram...</p>
+    <a href="https://www.instagram.com/fu777er/">si no pasa nada, entra aca</a>
   </div>
-  <script>location.replace("https://www.instagram.com/fu777er/");</script>
+  <!-- los 700ms le dan tiempo al beacon de cloudflare web analytics
+       a mandar el pageview antes de irnos. asi se puede contar
+       cuanta gente pasa de verdad. -->
+  <script>setTimeout(function(){location.replace("https://www.instagram.com/fu777er/");},700);</script>
 </body>
 </html>

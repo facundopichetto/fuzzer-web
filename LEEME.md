@@ -1,12 +1,17 @@
 # fuzzer.com.ar — sitio
 
-## Archivos
+## Estructura
+La raiz es solo lo general (este LEEME, notas, scripts). **Todo lo que se sirve
+vive en `public/`**: ese es el output directory del proyecto de Cloudflare Pages.
+
+## Archivos (dentro de `public/`)
 - `index.html` — la landing entera, un solo archivo autocontenido (346 KB).
   La tapa de CROTO va embebida en base64, no depende de ningun servidor de imagenes.
 - `_redirects` — vacio a proposito, solo un comentario. Ver "Atajos y como se mide".
 - `croto/`, `amsterdam/`, `enrio/`, `notmybestnight/`, `eva/`, `nosvanamatar/`,
   `spotify/`, `ep/`, `yt/`, `video/`, `ig/`, `qr1/` — los atajos, uno por carpeta,
   cada uno un `index.html` que redirige solo.
+- `qr-show.html` — las hojas de QR para imprimir.
 
 ## Atajos y como se mide
 Antes los atajos eran 302 en `_redirects`. Un 302 lo resuelve Cloudflare: el
@@ -35,10 +40,11 @@ Los 302 viejos estan en `git show c119f30:_redirects` por si hay que volver.
 
 ## Como se publica
 Manual: Workers & Pages -> el proyecto `fuzzer` -> Create new deployment ->
-Upload assets -> subir el contenido de esta carpeta.
+Upload assets -> subir el contenido de `public/`.
 
 Mejor: conectar Pages al repo (Workers & Pages -> Create -> Pages -> Connect to
-Git -> `facundopichetto/fuzzer-web`, sin build command, output directory `/`).
+Git -> `facundopichetto/fuzzer-web`, branch `main`, sin build command, output directory
+`public`).
 Con eso cada push a `main` deploya solo y no hay que subir zips nunca mas.
 
 Custom domains -> fuzzer.com.ar y www.fuzzer.com.ar.
